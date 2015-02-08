@@ -1,0 +1,8 @@
+# internal sdcard
+dev_mount sdcard /storage/sdcard auto /devices/virtual/block/actj
+
+# external sdcard
+dev_mount sd-ext /storage/sd-ext auto /devices/platform/asoc-mmc0.0/mmc_host/mmc0
+
+# usbdisk
+dev_mount uhost /storage/uhost auto /devices/platform/actions-dwc3.1/dwc3.0/xhci-hcd
