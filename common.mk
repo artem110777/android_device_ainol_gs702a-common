@@ -57,7 +57,8 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/init.gs702a.sdboot.rc:root/init.gs702a.sdboot.rc \
     $(LOCAL_PATH)/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
     $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
-    $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh
+    $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh \
+    $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
 	
 # Keylayout and Idc
 PRODUCT_COPY_FILES += \

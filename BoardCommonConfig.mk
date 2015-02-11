@@ -68,7 +68,7 @@ TARGET_BOOTANIMATION_PRELOAD := true
 # Kernel
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel/kernel
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=ttyS5,115200 earlyprintk androidboot.selinux=0
+BOARD_KERNEL_CMDLINE := console=ttyS5,115200 earlyprintk
 BOARD_PAGE_SIZE := 2048
 
 # Radio
