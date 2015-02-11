@@ -120,7 +120,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/vold.sdboot.fstab:system/etc/vold.sdboot.fstab	
 	
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bq.gpu_to_cpu_unsupported=1 \
+    ro.build.selinux=0 \
     ro.opengles.version=131072 \
     hwui.render_dirty_regions=false
 
