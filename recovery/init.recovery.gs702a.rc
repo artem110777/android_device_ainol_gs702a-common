@@ -1,10 +1,15 @@
-on early-init
+on fs
     # insmod flash driver
     insmod /lib/modules/blk1drv.ko
     insmod /lib/modules/blk2drv.ko
     wait /dev/block/actc
-	
-    # from init.modules.rc
+
+    mount vfat /dev/block/actb /boot
+    mount emmc /dev/block/actb /misc umask=0022
+    mount vfat /dev/block/actj /sdcard nosuid nodev
+    mount debugfs none /sys/kernel/debug
+
+on post-fs
     # pmic
     insmod /lib/modules/atc260x_onoff.ko
     insmod /lib/modules/atc260x_adckeypad.ko
@@ -38,9 +43,7 @@ on early-init
 
 	# gpu
     insmod /lib/modules/galcore.ko
-	# end from init.modules.rc
 
-	# from init.extra_modules.rc
     insmod /lib/modules/atv5202_backlight.ko
     insmod /lib/modules/atv5202_lcd.ko
     insmod /lib/modules/atv5202_fb.ko
@@ -48,5 +51,4 @@ on early-init
     insmod /lib/modules/gl5202_tvout.ko
     insmod /lib/modules/gl5202_hdmi.ko
 	
-	insmod /lib/modules/ctp_ft5x06.ko
-	# end from init.extra_modules.rc	
+	#insmod /lib/modules/ctp_ft5x06.ko	
