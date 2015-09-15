@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013 The CyanogenMod Project
+# Copyright (C) 2012 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 
 # Audio
 BOARD_USES_GENERIC_AUDIO := true
-BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB=false
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := ATM702X
@@ -68,7 +67,7 @@ TARGET_BOOTANIMATION_PRELOAD := true
 # Kernel
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel/kernel
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=ttyS5,115200 earlyprintk
+BOARD_KERNEL_CMDLINE := console=null androidboot.console=null
 BOARD_PAGE_SIZE := 2048
 
 # Radio
@@ -97,4 +96,4 @@ TW_MAX_BRIGHTNESS := 255
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/act_pwm_backlight/brightness"
 
 # Releasetool
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := build/tools/releasetools/ota_from_target_files
+TARGET_RELEASETOOLS_EXTENSIONS := device/ainol/gs702a-common

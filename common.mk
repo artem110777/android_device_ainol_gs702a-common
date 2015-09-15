@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013 The CyanogenMod Project
+# Copyright (C) 2012 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Audio configuration file
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio_policy.conf:/system/etc/audio_policy.conf
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
 # Feature live wallpaper
 PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml	
+	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml	
 	
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -39,10 +39,6 @@ PRODUCT_PACKAGES += \
     charger \
     charger_res_images \
     usbmond
-
-# GSensor
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/excluded-input-devices.xml:system/etc/excluded-input-devices.xml
 	
 # Init files
 PRODUCT_COPY_FILES := \
@@ -64,9 +60,7 @@ PRODUCT_COPY_FILES := \
 # Keylayout and Idc
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/atc260x-adckeypad.kl:system/usr/keylayout/atc260x-adckeypad.kl \
-    $(LOCAL_PATH)/idc/ft5x0x_ts.idc:system/usr/idc/ft5x0x_ts.idc \
-    $(LOCAL_PATH)/idc/GT813.idc:system/usr/idc/GT813.idc \
-    $(LOCAL_PATH)/idc/mt395.idc:system/usr/idc/mt395.idc
+    $(LOCAL_PATH)/idc/ft5x0x_ts.idc:system/usr/idc/ft5x0x_ts.idc
 	
 # Live Wallpapers
 PRODUCT_PACKAGES += \
@@ -95,7 +89,7 @@ PRODUCT_COPY_FILES += \
 	
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mass_storage
+	persist.sys.usb.config=mass_storage,adb
 	
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \

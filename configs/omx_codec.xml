@@ -62,6 +62,17 @@
             <lib>libOMX.Action.Video.Decoder.so</lib>
             <entryname>OMX_ComponentInit</entryname>
         </component>
+		<component>
+            <name>OMX.Action.Video.Decoder.Enhance</name>
+            <roles>
+            <name> OMX.Action.Video.Decoder.Enhance </name>
+            <role>video_decoder.mpeg2_interlaced</role>            
+            </roles>
+            <version>1.1</version>
+            <omxversion>1.1</omxversion>
+            <lib>libOMX.Action.Video.Decoder.Enhance.so</lib>
+            <entryname>OMX_ComponentInit</entryname>
+        </component>
 	</video>
 	<audio>
 		<component>

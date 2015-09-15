@@ -25,18 +25,20 @@ on early-init
     mkdir /mnt/sd-ext 0000 system system
     mkdir /mnt/uhost 0000 system system
     mkdir /mnt/media 0755 system system
+	# Backwards compatibility
+    symlink /mnt/sdcard /sdcard
+	symlink /mnt/sd-ext /sd-ext
 
-    # pmic
+    # Insmod boot driver
     insmod /lib/modules/atc260x_onoff.ko
     insmod /lib/modules/atc260x_adckeypad.ko
     insmod /lib/modules/atc260x_power.ko
     insmod /lib/modules/atc260x_rtc.ko
     
-    # mmc
+    # Insmod flash driver
     insmod /lib/modules/mmc_core.ko
     insmod /lib/modules/mmc_block.ko
     insmod /lib/modules/atv5202_mmc.ko
-    
 	insmod /lib/modules/blk1drv.ko is_probe=1
 	
 	# Display
@@ -45,22 +47,22 @@ on early-init
     insmod /misc/modules/atv5202_lcd.ko
     insmod /misc/modules/atv5202_fb.ko
 	
-    # Try to mount /misc
+    # Mount /misc
     mkdir /misc
     wait /dev/block/mmcblk0p5
     mount vfat /dev/block/mmcblk0p1 /misc ro wait noatime nodiratime umask=0022
 
 on fs
-	
-	# Try to mount /system
-    mount ext4 /dev/block/mmcblk0p5 /system ro wait noatime nodiratime nosuid nodev noauto_da_alloc
+	# Mount /system
+    mount ext4 /dev/block/actc /system ro wait noatime nodiratime nodev nosuid noauto_da_alloc
     
-	# Try to mount /data
-	mount tmpfs tmpfs /data wait noatime nodiratime nosuid nodev
+	# Mount /data
+	mount ext4 /dev/block/actd /data wait noatime nodiratime nosuid nodev
     
-	# Try to mount /cache
-	mount tmpfs tmpfs /cache wait noatime nodiratime nosuid nodev
+	# Mount /cache
+	mount ext4 /dev/block/acte /cache wait noatime nodiratime nosuid nodev
     
+	# Kernel debug
     mount debugfs none /sys/kernel/debug
 
 on post-fs-data
@@ -141,7 +143,7 @@ on boot
 	setprop persist.sys.shutok init
 	
 on init
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions_hardware.jar	
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar	
 	
 # Update system time from rtc
 service hwclock_update /system/xbin/busybox hwclock -s

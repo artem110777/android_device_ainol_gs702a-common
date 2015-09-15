@@ -18,3 +18,5 @@
 /dev/ttyUSB2			  0666   radio		radio
 /dev/ppp                  0666   radio      vpn
 /dev/vde                  0666   root       root
+/dev/block/acta           0660   system     system
+/dev/sw_sync              0640   system     system
