@@ -35,7 +35,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 
 # Audio
-BOARD_USES_GENERIC_AUDIO := true
+BOARD_USES_ACTIONS_AUDIO := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := ATM702X
@@ -43,6 +43,9 @@ TARGET_NO_BOOTLOADER := true
 
 # Camera
 USE_CAMERA_STUB := true
+
+# Display
+BOARD_USES_ACTIONS_DISPLAY := true
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
@@ -64,11 +67,17 @@ USE_OPENGL_RENDERER := true
 BOARD_USE_SKIA_LCDTEXT := true
 TARGET_BOOTANIMATION_PRELOAD := true
 
+# HDMI
+BOARD_USES_ACTIONS_HDMI := true
+
 # Kernel
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel/kernel
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := console=null androidboot.console=null
 BOARD_PAGE_SIZE := 2048
+
+# Sensor
+BOARD_USES_ACTIONS_SENSOR := true
 
 # Radio
 TARGET_NO_RADIOIMAGE := true
@@ -81,6 +90,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_565
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_LCD_BACKLIGHT_PATH := "/sys/class/backlight/act_pwm_backlight/brightness"
 # TWRP:
 RECOVERY_SDCARD_ON_DATA := false
 BOARD_HAS_NO_REAL_SDCARD := false

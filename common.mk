@@ -114,7 +114,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/configs/vold.sdboot.fstab:system/etc/vold.sdboot.fstab	
-	
+
+# .prop override
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=0 \
     ro.opengles.version=131072 \
