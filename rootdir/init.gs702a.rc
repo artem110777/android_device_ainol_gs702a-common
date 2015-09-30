@@ -25,9 +25,9 @@ on early-init
     mkdir /mnt/sd-ext 0000 system system
     mkdir /mnt/uhost 0000 system system
     mkdir /mnt/media 0755 system system
-	# Backwards compatibility
+    # Backwards compatibility
     symlink /mnt/sdcard /sdcard
-	symlink /mnt/sd-ext /sd-ext
+    symlink /mnt/sd-ext /sd-ext
 	
     # Insmod flash driver
     insmod /lib/modules/blk1drv.ko
@@ -39,23 +39,23 @@ on early-init
     insmod /misc/modules/atv5202_lcd.ko
     insmod /misc/modules/atv5202_fb.ko
 	
-	# Mount /misc
+    # Mount /misc
     mkdir /misc
     wait /dev/block/actb
     mount vfat /dev/block/actb /misc ro wait noatime nodiratime umask=0022
 
 on fs
-	# Mount system	
+    # Mount system	
     wait /dev/block/actc
     mount ext4 /dev/block/actc /system ro noatime nodiratime nodev noauto_da_alloc
 	
-	# Mount /data
-	wait /dev/block/actd
-	mount ext4 /dev/block/actd /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
-	setupfs /dev/block/actd
-	umount /data	
-	exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/actd	
-	mount ext4 /dev/block/actd /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
+    # Mount /data
+    wait /dev/block/actd
+    mount ext4 /dev/block/actd /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
+    setupfs /dev/block/actd
+    umount /data	
+    exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/actd	
+    mount ext4 /dev/block/actd /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
 
     # Mount /cache
     wait /dev/block/acte
@@ -65,10 +65,10 @@ on fs
     exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/acte
     mount ext4 /dev/block/acte /cache noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc    
 
-	# Mount /media
+    # Mount /media
     mount vfat /dev/block/actg /mnt/media ro noatime nodiratime umask=0022 utf8
     
-	# Kernel debug
+    # Kernel debug
     mount debugfs none /sys/kernel/debug
 
 on post-fs-data
@@ -141,7 +141,7 @@ on boot
     chmod 0777 /sys/devices/system/cpu/cpu2/online
     chown system system /sys/devices/system/cpu/cpu3/online
     chmod 0777 /sys/devices/system/cpu/cpu3/online
-	chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 0777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 
     write /data/data/ant_status on
@@ -152,10 +152,10 @@ on boot
     chown media media /sys/devices/system/cpu/cpufreq/gpufreq/gpu3doutstanding
     chmod 0660 /sys/devices/system/cpu/cpufreq/gpufreq/gpu3doutstanding
 
-	# For performance-service
-	chown system system /dev/performance
+    # For performance-service
+    chown system system /dev/performance
     chmod 0777 /dev/performance
-	chown system system /sys/devices/system/cpu/cpufreq/user/boost
+    chown system system /sys/devices/system/cpu/cpufreq/user/boost
     chmod 0777 /sys/devices/system/cpu/cpufreq/user/boost
     chown system system /proc/cpu/alignment
     chmod 0777 /proc/cpu/alignment
@@ -173,10 +173,10 @@ on boot
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_mode
 	
     # Cancel wipe-data after abnormal shuoff
-	setprop persist.sys.shutok init
+    setprop persist.sys.shutok init
     setprop persist.sys.root 1	
 	
-	# Allow system to modify cpufreq control files
+    # Allow system to modify cpufreq control files
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
@@ -184,15 +184,21 @@ on boot
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 	
-	# Freq. fixes for CPU and GPU
+    # Freq. fixes for CPU and GPU
     write /sys/devices/system/cpu/cpufreq/user/boost 1
     chmod 0755 /sys/devices/system/cpu/cpufreq/user/boost
-	write /sys/devices/system/cpu/cpufreq/gpufreq/policy 2
-	chmod 0755 /sys/devices/system/cpu/cpufreq/user/boost
-	
-	# Colorfix after flashing
-	write /sys/devices/system/cpu/cpufreq/interactive/boost 1
-	chmod 0755 /sys/devices/system/cpu/cpufreq/interactive/boost
+    write /sys/devices/system/cpu/cpufreq/gpufreq/policy 2
+    chmod 0755 /sys/devices/system/cpu/cpufreq/user/boost
+
+    # Colorfix after flashing
+    write /sys/devices/system/cpu/cpufreq/interactive/boost 1
+    chmod 0755 /sys/devices/system/cpu/cpufreq/interactive/boost
+
+    # Increase speed of data transmission for /data and /sdcard
+    write /sys/block/actd/queue/read_ahead_kb 1024
+    chmod 0755 /sys/block/actd/queue/read_ahead_kb
+    write /sys/block/actj/queue/read_ahead_kb 1024
+    chmod 0755 /sys/block/actj/queue/read_ahead_kb
 
 on init
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar

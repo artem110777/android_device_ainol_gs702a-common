@@ -23,14 +23,13 @@
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
-
 #define HDMI_HARDWARE_DEVICE "/dev/hdmi"
 
 /**
  * The id of this module
  */
 #define HDMI_HARDWARE_MODULE_ID "hdmi"
-#define HDMI_HARDWARE_HDMI0		"hdmi0"
+#define HDMI_HARDWARE_HDMI0	"hdmi0"
 
 #if 0
 //typedef struct Audio_Settings hdmi_aud_t;
@@ -41,14 +40,11 @@ struct hdmi_aud_t{
     unsigned int channel_num;
 };
 
-
-
 //typedef struct Video_Settings hdmi_vid_t;
 struct hdmi_vid_t{
     int color_space;
     int video_id_code;
 };
-
 
 //typedef struct sink_capabilities sink_caps_t;
 struct sink_caps_t{
@@ -60,7 +56,7 @@ struct sink_caps_t{
 }
 #endif
 
- struct sink_capabilities_t{
+struct sink_capabilities_t {
 	unsigned int hdmi_mode;
 	/*
 	 * audio capabilites
@@ -213,8 +209,6 @@ static inline int hdmi_dev_close(struct hdmi_device_t* device) {
     return device->common.close(&device->common);
 }
 
-
 //__END_DECLS
 
 #endif  // ANDROID_HDMI_INTERFACE_H
-

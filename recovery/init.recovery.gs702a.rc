@@ -6,30 +6,40 @@
 
 
 on fs
-	# Insmod boot driver
+    # Insmod boot driver
     insmod /lib/modules/atc260x_onoff.ko
     insmod /lib/modules/atc260x_adckeypad.ko
     insmod /lib/modules/atc260x_power.ko
     insmod /lib/modules/atc260x_rtc.ko
-	
+
     # Insmod flash driver
     insmod /lib/modules/blk1drv.ko
     insmod /lib/modules/blk2drv.ko
 	
-	# Mount system
-	mount ext4 /dev/block/actc /system
+    # Mount /system
+    mount ext4 /dev/block/actc /system
+
+    # Mount /boot
     mount vfat /dev/block/actb /boot
+
+    # Mount /misc
     mount emmc /dev/block/actb /misc umask=0022
+
+    # Mount /sdcard
     mount vfat /dev/block/actj /sdcard nosuid nodev
-	mount auto /dev/block/mmcblk0p1 /mnt/sd-ext nosuid nodev
+
+    # Mount /sd-ext
+    mount auto /dev/block/mmcblk0p1 /mnt/sd-ext nosuid nodev
+	
+    # Kernel debug
     mount debugfs none /sys/kernel/debug
 
 on post-fs
-	# Audio
+    # Audio
     insmod /lib/modules/atc260x_audio.ko
     insmod /lib/modules/sndrv.ko
 	
-	# Display
+    # Display
     insmod /lib/modules/atv5202_de.ko
 	insmod /lib/modules/atv5202_backlight.ko
     insmod /lib/modules/atv5202_lcd.ko
@@ -38,7 +48,7 @@ on post-fs
     insmod /lib/modules/gl5202_tvout.ko
     insmod /lib/modules/gl5202_hdmi.ko
 
-	# GPU
+    # GPU
     insmod /lib/modules/galcore.ko
 	
     # MMC
@@ -52,10 +62,10 @@ on post-fs
     # Vce_drv
     insmod /lib/modules/vce_drv.ko
 	
-	# Touch
+    # Touch
 	insmod /lib/modules/ctp_ft5x06.ko
 	
-	# USB
+    # USB
     insmod /lib/modules/dwc3.ko
     insmod /lib/modules/dwc3-actions.ko
     insmod /lib/modules/g_android.ko

@@ -25,9 +25,9 @@ on early-init
     mkdir /mnt/sd-ext 0000 system system
     mkdir /mnt/uhost 0000 system system
     mkdir /mnt/media 0755 system system
-	# Backwards compatibility
+    # Backwards compatibility
     symlink /mnt/sdcard /sdcard
-	symlink /mnt/sd-ext /sd-ext
+    symlink /mnt/sd-ext /sd-ext
 
     # Insmod boot driver
     insmod /lib/modules/atc260x_onoff.ko
@@ -39,7 +39,7 @@ on early-init
     insmod /lib/modules/mmc_core.ko
     insmod /lib/modules/mmc_block.ko
     insmod /lib/modules/atv5202_mmc.ko
-	insmod /lib/modules/blk1drv.ko is_probe=1
+    insmod /lib/modules/blk1drv.ko is_probe=1
 	
 	# Display
     insmod /misc/modules/atv5202_de.ko
@@ -53,16 +53,16 @@ on early-init
     mount vfat /dev/block/mmcblk0p1 /misc ro wait noatime nodiratime umask=0022
 
 on fs
-	# Mount /system
+    # Mount /system
     mount ext4 /dev/block/actc /system ro wait noatime nodiratime nodev nosuid noauto_da_alloc
     
-	# Mount /data
+    # Mount /data
 	mount ext4 /dev/block/actd /data wait noatime nodiratime nosuid nodev
     
-	# Mount /cache
+    # Mount /cache
 	mount ext4 /dev/block/acte /cache wait noatime nodiratime nosuid nodev
     
-	# Kernel debug
+    # Kernel debug
     mount debugfs none /sys/kernel/debug
 
 on post-fs-data
@@ -140,7 +140,7 @@ on boot
     chmod 0666 /data/data/ant_status
     
     # Cancel wipe-data after abnormal shuoff
-	setprop persist.sys.shutok init
+    setprop persist.sys.shutok init
 	
 on init
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar	
