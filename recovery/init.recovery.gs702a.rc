@@ -41,7 +41,7 @@ on post-fs
 	
     # Display
     insmod /lib/modules/atv5202_de.ko
-	insmod /lib/modules/atv5202_backlight.ko
+    insmod /lib/modules/atv5202_backlight.ko
     insmod /lib/modules/atv5202_lcd.ko
     insmod /lib/modules/atv5202_fb.ko
     insmod /lib/modules/atv5202_vout.ko
@@ -63,7 +63,7 @@ on post-fs
     insmod /lib/modules/vce_drv.ko
 	
     # Touch
-	insmod /lib/modules/ctp_ft5x06.ko
+    insmod /lib/modules/ctp_ft5x06.ko
 	
     # USB
     insmod /lib/modules/dwc3.ko
