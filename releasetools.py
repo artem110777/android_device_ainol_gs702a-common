@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Custom OTA commands for mangov2 """
+""" Custom OTA commands for gs702a-devices """
 
 def FullOTA_InstallBegin(info):
   info.script.AppendExtra('mount("vfat", "EMMC", "/dev/block/actb", "/misc");')
