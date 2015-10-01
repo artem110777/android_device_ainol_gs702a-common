@@ -194,7 +194,9 @@ on boot
     write /sys/devices/system/cpu/cpufreq/interactive/boost 1
     chmod 0755 /sys/devices/system/cpu/cpufreq/interactive/boost
 
-    # Increase speed of data transmission for /data and /sdcard
+    # Increase speed of data transmission for /system /data /sdcard
+    write /sys/block/actc/queue/read_ahead_kb 1024
+    chmod 0755 /sys/block/actc/queue/read_ahead_kb
     write /sys/block/actd/queue/read_ahead_kb 1024
     chmod 0755 /sys/block/actd/queue/read_ahead_kb
     write /sys/block/actj/queue/read_ahead_kb 1024
