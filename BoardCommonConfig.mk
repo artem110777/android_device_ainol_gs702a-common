@@ -82,28 +82,13 @@ BOARD_USES_ACTIONS_SENSOR := true
 # Radio
 TARGET_NO_RADIOIMAGE := true
 
-# Recovery
-# CWM:
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/twrp.fstab
+# CWM Recovery
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
 RECOVERY_FSTAB_VERSION := 2
-TARGET_RECOVERY_PIXEL_FORMAT := RGBX_565
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := "/sys/class/backlight/act_pwm_backlight/brightness"
-# TWRP:
-RECOVERY_SDCARD_ON_DATA := false
-BOARD_HAS_NO_REAL_SDCARD := false
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-TWHAVE_SELINUX := false
-TW_NO_REBOOT_BOOTLOADER := true
-TW_INTERNAL_STORAGE_PATH := "/dev/block/actj"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "/sdcard"
-TW_EXTERNAL_STORAGE_PATH := "/dev/block/mmcblk0"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "/sd-ext"
-TW_DEFAULT_EXTERNAL_STORAGE := false
-TW_MAX_BRIGHTNESS := 255
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/act_pwm_backlight/brightness"
 
 # Releasetool
 TARGET_RELEASETOOLS_EXTENSIONS := device/ainol/gs702a-common
