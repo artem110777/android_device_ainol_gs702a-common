@@ -92,5 +92,4 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := "/sys/class/backlight/act_pwm_backlight/brightness"
 
 # Releasetool
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := build/tools/releasetools/ota_from_target_files
 TARGET_RELEASETOOLS_EXTENSIONS := device/ainol/gs702a-common
