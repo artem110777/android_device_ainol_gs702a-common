@@ -78,7 +78,7 @@ Only the three quirks included above are recognized at this point:
 <MediaCodecs>
     <Decoders>
         <MediaCodec name="OMX.Action.Video.Decoder" >
-        		<Type name="video/mpeg2" />
+            <Type name="video/mpeg2" />
             <Type name="video/avc" />
             <Type name="video/divx" />
             <Type name="video/div3" />
@@ -107,7 +107,7 @@ Only the three quirks included above are recognized at this point:
         </MediaCodec>
         
         <MediaCodec name="OMX.Action.Audio.Decoder" >
-        		<Type name="audio/AC3" />
+            <Type name="audio/AC3" />
             <Type name="audio/MP3" />
             <Type name="audio/AAC" />
             <Type name="audio/AMR" />

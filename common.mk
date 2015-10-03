@@ -39,7 +39,19 @@ PRODUCT_PACKAGES += \
     charger \
     charger_res_images \
     usbmond
-	
+
+# H/W
+PRODUCT_PACKAGES += \
+    audio.r_submix.default \
+    audio.policy.default \
+    audio.primary.ATM702X \
+    displayengine.ATM702X \
+    gralloc.ATM702X \
+    hdmi.ATM702X \
+    hwcomposer.ATM702X \
+    lights.ATM702X \
+    sensors.ATM702X
+
 # Init files
 PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/lib/modules/atv5202_mmc.ko:root/lib/modules/atv5202_mmc.ko \
@@ -54,8 +66,7 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
     $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
     $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh \
-    $(LOCAL_PATH)/recovery/recovery.fstab:recovery/root/etc/recovery.fstab \
-    $(LOCAL_PATH)/recovery/init.recovery.gs702a.rc:recovery/root/init.recovery.gs702a.rc
+    $(LOCAL_PATH)/recovery/root/init.recovery.gs702a.rc:recovery/root/init.recovery.gs702a.rc
 	
 # Keylayout and Idc
 PRODUCT_COPY_FILES += \
