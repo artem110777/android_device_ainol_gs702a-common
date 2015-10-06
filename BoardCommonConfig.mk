@@ -60,6 +60,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # Graphics
+BOARD_USES_ACTIONS_GPU := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 BOARD_USES_HGL := true
 BOARD_USES_OVERLAY := true
@@ -92,4 +93,4 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := "/sys/class/backlight/act_pwm_backlight/brightness"
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/ainol/gs702a-common/releasetools/ota_from_target_files
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/ainol/gs702a-common/releasetools/gs702a_ota_from_target_files

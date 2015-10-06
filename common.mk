@@ -40,6 +40,18 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     usbmond
 
+# GPU
+PRODUCT_OACKAGES += \
+    game_r2 \
+    game_r3 \
+    gpu_config \
+    gpuhwcomposer.ATM702X.so \
+    libEGL_VIVANTE.so \
+    libGAL.so \
+    libGLESv1_VIVANTE.so \
+    libGLESv2_VIVANTE.so \
+    libGLSLC.so
+
 # H/W
 PRODUCT_PACKAGES += \
     audio.r_submix.default \
