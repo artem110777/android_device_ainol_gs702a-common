@@ -60,8 +60,8 @@ on fs
     # Mount /cache
     wait /dev/block/acte
     mount ext4 /dev/block/acte /cache noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
-	setupfs /dev/block/acte
-	umount /cache
+    setupfs /dev/block/acte
+    umount /cache
     exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/acte
     mount ext4 /dev/block/acte /cache noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc    
 

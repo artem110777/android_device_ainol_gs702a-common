@@ -99,7 +99,7 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="needs-flush-before-disable" />
         </MediaCodec>
 		
-		<MediaCodec name="OMX.Action.Video.Decoder.Enhance" >
+        <MediaCodec name="OMX.Action.Video.Decoder.Enhance" >
             <Type name="video/mpeg2_interlaced" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="input-buffer-sizes-are-bogus" />

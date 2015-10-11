@@ -34,19 +34,19 @@ on early-init
     insmod /lib/modules/atc260x_adckeypad.ko
     insmod /lib/modules/atc260x_power.ko
     insmod /lib/modules/atc260x_rtc.ko
-    
+
     # Insmod flash driver
     insmod /lib/modules/mmc_core.ko
     insmod /lib/modules/mmc_block.ko
     insmod /lib/modules/atv5202_mmc.ko
     insmod /lib/modules/blk1drv.ko is_probe=1
-	
-	# Display
+
+    # Display
     insmod /misc/modules/atv5202_de.ko
     insmod /misc/modules/atv5202_backlight.ko
     insmod /misc/modules/atv5202_lcd.ko
     insmod /misc/modules/atv5202_fb.ko
-	
+
     # Mount /misc
     mkdir /misc
     wait /dev/block/mmcblk0p5
@@ -55,13 +55,13 @@ on early-init
 on fs
     # Mount /system
     mount ext4 /dev/block/actc /system ro wait noatime nodiratime nodev nosuid noauto_da_alloc
-    
+
     # Mount /data
-	mount ext4 /dev/block/actd /data wait noatime nodiratime nosuid nodev
-    
+    mount ext4 /dev/block/actd /data wait noatime nodiratime nosuid nodev
+
     # Mount /cache
-	mount ext4 /dev/block/acte /cache wait noatime nodiratime nosuid nodev
-    
+    mount ext4 /dev/block/acte /cache wait noatime nodiratime nosuid nodev
+
     # Kernel debug
     mount debugfs none /sys/kernel/debug
 

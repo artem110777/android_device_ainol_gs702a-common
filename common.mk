@@ -17,6 +17,10 @@ LOCAL_PATH := device/ainol/gs702a-common
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
+PRODUCT_TAGS += dalvik.gc.type-precise	
+
+PRODUCT_CHARACTERISTICS := tablet
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Audio configuration file
@@ -25,8 +29,8 @@ PRODUCT_COPY_FILES += \
 
 # Feature live wallpaper
 PRODUCT_COPY_FILES += \
-	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml	
-	
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml	
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     static_busybox \
@@ -108,8 +112,8 @@ PRODUCT_PACKAGES += \
 
 # OMX configuration file
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml
-	
+    $(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mass_storage,adb
@@ -143,7 +147,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=0 \
     ro.opengles.version=131072 \
     hwui.render_dirty_regions=false
-
-PRODUCT_TAGS += dalvik.gc.type-precise	
-
-PRODUCT_CHARACTERISTICS := tablet

@@ -32,22 +32,25 @@
 #define HDMI_HARDWARE_HDMI0	"hdmi0"
 
 #if 0
-//typedef struct Audio_Settings hdmi_aud_t;
-struct hdmi_aud_t{
+// typedef struct Audio_Settings hdmi_aud_t;
+struct hdmi_aud_t
+{
     unsigned int audio_enable;
-    unsigned int  sample_rate;
-    unsigned int  sample_precision;
+    unsigned int sample_rate;
+    unsigned int sample_precision;
     unsigned int channel_num;
 };
 
-//typedef struct Video_Settings hdmi_vid_t;
-struct hdmi_vid_t{
+// typedef struct Video_Settings hdmi_vid_t;
+struct hdmi_vid_t
+{
     int color_space;
     int video_id_code;
 };
 
-//typedef struct sink_capabilities sink_caps_t;
-struct sink_caps_t{
+// typedef struct sink_capabilities sink_caps_t;
+struct sink_caps_t
+{
     int max_channel_num;
     int sample_rate;
     int speaker_info;
@@ -56,7 +59,8 @@ struct sink_caps_t{
 }
 #endif
 
-struct sink_capabilities_t {
+struct sink_capabilities_t
+{
 	unsigned int hdmi_mode;
 	/*
 	 * audio capabilites
@@ -149,7 +153,8 @@ struct sink_capabilities_t {
 	unsigned int video_formats[4];
 };
 
-typedef struct {
+typedef struct
+{
     unsigned int vid;
     unsigned int width;      /* width for each video format */
     unsigned int height;     /* height for each video format */
@@ -164,7 +169,8 @@ typedef struct {
  * and the fields of this data structure must begin with hw_module_t
  * followed by module specific information.
  */
-struct hdmi_module_t {
+struct hdmi_module_t
+{
     struct hw_module_t common;
 };
 
@@ -172,7 +178,8 @@ struct hdmi_module_t {
  * Every device data structure must begin with hw_device_t
  * followed by module specific public methods and attributes.
  */
-struct hdmi_device_t {
+struct hdmi_device_t
+{
     struct hw_device_t common;
     struct sink_capabilities_t sink_cap;
 
@@ -196,16 +203,16 @@ struct hdmi_device_t {
     int (*set_hdcp_switch)(struct hdmi_device_t *dev, bool flag);
 };
 
-
 /** convenience API for opening and closing a device */
-
 static inline int hdmi_dev_open(const struct hw_module_t* module, 
-        struct hdmi_device_t** device) {
+        struct hdmi_device_t** device)
+{
     return module->methods->open(module, 
             HDMI_HARDWARE_HDMI0, (struct hw_device_t**)device);
 }
 
-static inline int hdmi_dev_close(struct hdmi_device_t* device) {
+static inline int hdmi_dev_close(struct hdmi_device_t* device)
+{
     return device->common.close(&device->common);
 }
 

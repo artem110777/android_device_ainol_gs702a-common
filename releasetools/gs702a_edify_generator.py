@@ -26,7 +26,7 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
       args = {'image': image, 'partition': partition}
 
       self.script.append(
-	        ('mount("vfat", "EMMC", "%(partition)s", "/misc");\n'
+            ('mount("vfat", "EMMC", "%(partition)s", "/misc");\n'
              '       package_extract_dir("system/kernel/misc", "/misc");\n'
              '       package_extract_file("%(image)s", "/misc/%(image)s");\n'
              '       unmount("/misc");') % args)
@@ -37,5 +37,5 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
       if fstab:
         p = fstab[mount_point]
         self.script.append('unmount("%s");' %
-								(p.mount_point))
+                                (p.mount_point))
         self.mounts.add(p.mount_point)

@@ -16,20 +16,20 @@
             <name>OMX.Action.Video.Encoder</name>
             <roles>
                 <name>OMX.Action.Video.Encoder</name>
-        	    <role>video_encoder.avc</role>
-    			<name>OMX.Action.Video.Encoder</name>
-        	    <role>video_encoder.mjpg</role>
-    			<name>OMX.Action.Video.Encoder</name>
-        	    <role>video_encoder.ipp</role>
+                <role>video_encoder.avc</role>
+                <name>OMX.Action.Video.Encoder</name>
+                <role>video_encoder.mjpg</role>
+                <name>OMX.Action.Video.Encoder</name>
+                <role>video_encoder.ipp</role>
             </roles>
- 		    <version>1.1</version>
-		    <omxversion>1.1</omxversion>
-		    <lib>libOMX.Action.Video.Encoder.so</lib>
-		    <entryname>OMX_ComponentInit</entryname>
+            <version>1.1</version>
+            <omxversion>1.1</omxversion>
+            <lib>libOMX.Action.Video.Encoder.so</lib>
+            <entryname>OMX_ComponentInit</entryname>
 		</component>
 	</camera>
 	<video>
-		  <component>
+        <component>
             <name>OMX.Action.Video.Decoder</name>
             <roles>
             <name> OMX.Action.Video.Decoder </name>
@@ -62,7 +62,7 @@
             <lib>libOMX.Action.Video.Decoder.so</lib>
             <entryname>OMX_ComponentInit</entryname>
         </component>
-		<component>
+        <component>
             <name>OMX.Action.Video.Decoder.Enhance</name>
             <roles>
             <name> OMX.Action.Video.Decoder.Enhance </name>
@@ -75,9 +75,9 @@
         </component>
 	</video>
 	<audio>
-		<component>
-		    <name>OMX.Action.Audio.Decoder</name>
-		    <roles>
+        <component>
+            <name>OMX.Action.Audio.Decoder</name>
+            <roles>
                 <name>audio_decoder.mp3</name>
                 <role>audio_decoder.mp3</role>
                 <name>audio_decoder.ac3</name>
@@ -115,23 +115,23 @@
                 <name>audio_decoder.awb</name>
                 <role>audio_decoder.awb</role>
             </roles>
- 		    <version>1.1</version>
-		    <omxversion>1.1</omxversion>
-		    <lib>libOMX.Action.Audio.Decoder.so</lib>
-		    <entryname>OMX_ComponentInit</entryname>
+            <version>1.1</version>
+            <omxversion>1.1</omxversion>
+            <lib>libOMX.Action.Audio.Decoder.so</lib>
+            <entryname>OMX_ComponentInit</entryname>
 		</component>
  	</audio> 	
  	<image>
-		<component>
-		    <name>OMX.Action.Image.Decoder</name>
-		<roles>
+        <component>
+            <name>OMX.Action.Image.Decoder</name>
+            <roles>
                 <name>OMX.Action.Image.Decoder</name>
                 <role>image_decoder.jpeg</role>
-            	</roles>
- 		    <version>1.1</version>
-		    <omxversion>1.1</omxversion>
-		    <lib>libOMX.Action.Image.Decoder.so</lib>
-		    <entryname>OMX_ComponentInit</entryname>
-		</component>
- 	</image>
+            </roles>
+                <version>1.1</version>
+                <omxversion>1.1</omxversion>
+                <lib>libOMX.Action.Image.Decoder.so</lib>
+                <entryname>OMX_ComponentInit</entryname>
+        </component>
+    </image>
 </omx>

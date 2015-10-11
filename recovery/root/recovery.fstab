@@ -8,5 +8,5 @@
 /data_bak	vfat		/dev/block/actf
 
 /mnt/sdcard     vfat        /dev/block/actj
-/mnt/sd-ext	    auto        /dev/block/mmcblk0p1
+/mnt/sd-ext     auto        /dev/block/mmcblk0p1
 /mnt/uhost      auto        /dev/block/mmcblk0p2 

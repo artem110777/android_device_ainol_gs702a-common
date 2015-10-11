@@ -101,7 +101,7 @@
                    channels="1" />
         </EncoderProfile>
 				
-				<EncoderProfile quality="low" fileFormat="mp4" duration="60">
+        <EncoderProfile quality="low" fileFormat="mp4" duration="60">
             <Video codec="h264"
                    bitRate="4096000"
                    width="800"

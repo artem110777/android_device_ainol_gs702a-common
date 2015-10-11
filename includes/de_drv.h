@@ -32,8 +32,8 @@ enum disp_dev_id
     TV_CVBS_DISPLAYER = 0x4,
     TV_YPbPr_DISPLAYER = 0x8,
     LCD_DISPLAYER_SECOND = 0x10,
-	DSI_DISPLAYER = 0x20,
-	DUMY_DISPLAYER = 0x8000,
+    DSI_DISPLAYER = 0x20,
+    DUMY_DISPLAYER = 0x8000,
 };
 
 /* DE 的显示模式
@@ -231,18 +231,18 @@ enum disp_dev_id
 
 struct overlay
 {
-	int layerId;
-	bool enable;
-	int isChanged;
-	int iFenceID;
-	int syncTimeLineFD;
-	
+    int layerId;
+    bool enable;
+    int isChanged;
+    int iFenceID;
+    int syncTimeLineFD;
+
 	/*image informations */
     int imageW ;
     int imageH;
     int format;
     int physAddr;
-    
+
     /*out put window informations */
     int posX ;
     int posY ;
@@ -258,9 +258,10 @@ struct overlay
     int cropH;
 };
 
-struct de_layers{
-	int layerNumber;
-	struct overlay ovl[2];
+struct de_layers
+{
+    int layerNumber;
+    struct overlay ovl[2];
 };
 
 #endif
