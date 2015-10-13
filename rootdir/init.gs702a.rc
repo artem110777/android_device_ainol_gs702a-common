@@ -186,21 +186,23 @@ on boot
 	
     # Freq. fixes for CPU and GPU
     write /sys/devices/system/cpu/cpufreq/user/boost 1
-    chmod 0755 /sys/devices/system/cpu/cpufreq/user/boost
+    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
     write /sys/devices/system/cpu/cpufreq/gpufreq/policy 2
-    chmod 0755 /sys/devices/system/cpu/cpufreq/user/boost
+    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
 
     # Colorfix after flashing
     write /sys/devices/system/cpu/cpufreq/interactive/boost 1
-    chmod 0755 /sys/devices/system/cpu/cpufreq/interactive/boost
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/boost
 
-    # Increase speed of data transmission for /system /data /sdcard
-    write /sys/block/actc/queue/read_ahead_kb 1024
-    chmod 0755 /sys/block/actc/queue/read_ahead_kb
-    write /sys/block/actd/queue/read_ahead_kb 1024
-    chmod 0755 /sys/block/actd/queue/read_ahead_kb
-    write /sys/block/actj/queue/read_ahead_kb 1024
-    chmod 0755 /sys/block/actj/queue/read_ahead_kb
+    # Increase memory speed of data transmission for /system /data /sdcard
+    write /sys/devices/virtual/bdi/default/read_ahead_kb 2048
+    chmod 0444 /sys/devices/virtual/bdi/default/read_ahead_kb
+    write /sys/devices/virtual/bdi/93:72/read_ahead_kb 2048
+    chmod 0444 /sys/devices/virtual/bdi/93:72/read_ahead_kb
+    write /sys/devices/virtual/bdi/93:24/read_ahead_kb 2048
+    chmod 0444 /sys/devices/virtual/bdi/93:24/read_ahead_kb
+    write /sys/devices/virtual/bdi/93:0/read_ahead_kb 2048
+    chmod 0444 /sys/devices/virtual/bdi/93:0/read_ahead_kb
 
 on init
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
