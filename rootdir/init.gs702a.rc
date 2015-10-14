@@ -32,17 +32,17 @@ on early-init
     # Insmod flash driver
     insmod /lib/modules/blk1drv.ko
     insmod /lib/modules/blk2drv.ko
-	
+
+    # Mount /misc
+    mkdir /misc
+    wait /dev/block/actb
+    mount vfat /dev/block/actb /misc ro wait noatime nodiratime umask=0022
+
     # Display
     insmod /misc/modules/atv5202_de.ko
     insmod /misc/modules/atv5202_backlight.ko
     insmod /misc/modules/atv5202_lcd.ko
     insmod /misc/modules/atv5202_fb.ko
-	
-    # Mount /misc
-    mkdir /misc
-    wait /dev/block/actb
-    mount vfat /dev/block/actb /misc ro wait noatime nodiratime umask=0022
 
 on fs
     # Mount system	
