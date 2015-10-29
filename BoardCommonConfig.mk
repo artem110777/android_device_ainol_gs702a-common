@@ -74,7 +74,7 @@ BOARD_USES_ACTIONS_HDMI := true
 # Kernel
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel/kernel
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=null androidboot.console=null
+BOARD_KERNEL_CMDLINE := console=null
 BOARD_PAGE_SIZE := 2048
 
 # Sensor
