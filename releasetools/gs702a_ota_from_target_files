@@ -15,14 +15,21 @@
 # limitations under the License.
 
 import sys
+
+if sys.hexversion < 0x02040000:
+  print >> sys.stderr, "Python 2.4 or newer is required."
+  sys.exit(1)
+
 import os
-import gs702a_common as common
 
 LOCAL_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 RELEASETOOLS_DIR = os.path.abspath(os.path.join(LOCAL_DIR, '../../../build/tools/releasetools'))
+TARGET_DIR = os.getenv('OUT')
 
 # Add releasetools directory to python path
 sys.path.append(RELEASETOOLS_DIR)
+
+import gs702a_common as common
 
 # Import the existing file so we just have to rewrite the modules we need.
 # This is a nasty hack as the filename doesn't end in .py, but it works
@@ -30,15 +37,13 @@ filename = os.path.join(RELEASETOOLS_DIR, "ota_from_target_files")
 ota_from_target_files = common.load_module_from_file('ota_from_target_files', filename)
 
 from ota_from_target_files import *
-import gs702a_edify_generator as edify_generator
 
 __doc__ = ota_from_target_files.__doc__
 
 def CopyBootFiles(input_zip, output_zip):
-  boot_img = common.GetBootableImage("boot.img", "boot.img",
-                                     OPTIONS.input_tmp, "BOOT")
-  common.CheckSize(boot_img.data, "boot.img", OPTIONS.info_dict)
-  common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
+    output_zip.write(os.path.join(TARGET_DIR, "boot.img"),"boot.img")
+
+import gs702a_edify_generator as edify_generator
 
 def WriteFullOTAPackage(input_zip, output_zip):
   # TODO: how to determine this?  We don't know what version it will
@@ -65,6 +70,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   AppendAssertions(script, input_zip)
   device_specific.FullOTA_Assertions()
+  device_specific.FullOTA_InstallBegin()
+
   if OPTIONS.backuptool:
     script.Mount("/system")
     script.RunBackup("backup")
@@ -75,10 +82,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
-  script.Unmount("/system")
   script.FormatPartition("/system")
   script.Mount("/system")
-  script.UnpackPackageDir("recovery", "/system")
   script.UnpackPackageDir("system", "/system")
 
   symlinks = CopySystemFiles(input_zip, output_zip)
@@ -96,7 +101,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
     script.RunBackup("restore")
 
   script.ShowProgress(0.2, 10)
-  script.FlashBoot("boot.img", "/dev/block/actb")
+  script.FlashBoot("/dev/block/actb")
 
   script.ShowProgress(0.1, 0)
   device_specific.FullOTA_InstallEnd()
@@ -108,7 +113,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.AddToZip(input_zip, output_zip)
   WriteMetadata(metadata, output_zip)
 ota_from_target_files.WriteFullOTAPackage = WriteFullOTAPackage
-
 
 def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
     print "Incremental OTA Packages are not support on the gs702a at this time"

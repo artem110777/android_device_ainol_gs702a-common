@@ -12,30 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os, sys
+import os
+import sys
 
 LOCAL_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 RELEASETOOLS_DIR = os.path.abspath(os.path.join(LOCAL_DIR, '../../../build/tools/releasetools'))
 
 import edify_generator
 
-class EdifyGenerator(edify_generator.EdifyGenerator):
-    def FlashBoot(self, image, partition):
+class EdifyGenerator(object):
+  """Class to generate scripts in the 'edify' recovery script language
+  used from donut onwards."""
+
+    def FlashBoot(self, partition):
 	  """Flash a gs702a misc and boot section."""
 
-      args = {'image': image, 'partition': partition}
-
+      args = {'partition': partition}
       self.script.append(
-            ('mount("vfat", "EMMC", "%(partition)s", "/misc");\n'
-             '       package_extract_dir("system/kernel/misc", "/misc");\n'
-             '       package_extract_file("%(image)s", "/misc/%(image)s");\n'
-             '       unmount("/misc");') % args)
-
-    def Unmount(self, mount_point):
-      """Unmount the partition with the given mount_point."""
-      fstab = self.info.get("fstab", None)
-      if fstab:
-        p = fstab[mount_point]
-        self.script.append('unmount("%s");' %
-                                (p.mount_point))
-        self.mounts.add(p.mount_point)
+          ('mount("vfat", "EMMC", "%(partition)s", "/misc");'
+           'package_extract_dir("system/kernel/misc", "/misc");'
+           'package_extract_file("boot.img", "/misc/boot.img");'
+           'unmount("/misc");') % args)
