@@ -45,7 +45,7 @@ PRODUCT_PACKAGES += \
     usbmond
 
 # GPU
-PRODUCT_OACKAGES += \
+PRODUCT_PACKAGES += \
     game_r2 \
     game_r3 \
     gpu_config \
