@@ -102,7 +102,7 @@ class EdifyGenerator(object):
     self.script.append(self._WordWrap(cmd))
 
   def FlashBoot(self, partition):
-  	"""Flash a gs702a misc and boot section."""
+    """Flash a gs702a misc and boot section."""
     self.script.append(('mount("vfat", "EMMC", "%s", "/misc");' % partition))
     self.script.append('package_extract_dir("system/kernel/misc", "/misc");')
     self.script.append('package_extract_file("boot.img", "/misc/boot.img");')
