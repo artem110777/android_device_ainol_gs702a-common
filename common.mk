@@ -62,9 +62,9 @@ PRODUCT_PACKAGES += \
     audio.policy.default \
     audio.primary.ATM702X \
     displayengine.ATM702X \
-    gralloc.ATM702X \
+    gralloc.default \
     hdmi.ATM702X \
-    hwcomposer.ATM702X \
+    hwcomposer.default \
     lights.ATM702X \
     sensors.ATM702X
 
