@@ -17,14 +17,6 @@ LOCAL_PATH := device/ainol/gs702a-common
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# Audio configuration file
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
-
-# Feature live wallpaper
-PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml	
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     static_busybox \
@@ -56,9 +48,7 @@ PRODUCT_PACKAGES += \
     audio.policy.default \
     audio.primary.ATM702X \
     displayengine.ATM702X \
-    gralloc.default \
     hdmi.ATM702X \
-    hwcomposer.default \
     lights.ATM702X \
     sensors.ATM702X
 
@@ -75,8 +65,7 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/init.gs702a.sdboot.rc:root/init.gs702a.sdboot.rc \
     $(LOCAL_PATH)/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
     $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
-    $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh \
-    $(LOCAL_PATH)/recovery/root/init.recovery.gs702a.rc:recovery/root/init.recovery.gs702a.rc
+    $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh
 	
 # Keylayout and Idc
 PRODUCT_COPY_FILES += \
@@ -97,17 +86,11 @@ PRODUCT_PACKAGES += \
 	
 # Media
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
-
-# OMX
-PRODUCT_PACKAGES += \
-    libOMX_Core \
-    libstagefrighthw
-
-# OMX configuration file
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -147,3 +130,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=0 \
     ro.opengles.version=131072 \
     hwui.render_dirty_regions=false
+    
+$(call inherit-product-if-exists, vendor/ainol/gs702a-common/gs702a-common-vendor.mk)

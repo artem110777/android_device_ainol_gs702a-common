@@ -1,11 +1,6 @@
-# Copyright (C) 2013 Actions-Semi, Inc.
-#
-# IMPORTANT: Do not create world writable files or directories.
-# This is a common source of Android security bugs.
-#
+on early-init
+    start ueventd
 
-
-on fs
     # Insmod boot driver
     insmod /misc/modules/atc260x_onoff.ko
     insmod /misc/modules/atc260x_adckeypad.ko
@@ -30,15 +25,11 @@ on fs
 
     # Mount /sd-ext
     mount auto /dev/block/mmcblk0p1 /mnt/sd-ext nosuid nodev
-	
-    # Kernel debug
-    mount debugfs none /sys/kernel/debug
 
-on post-fs
     # Audio
     insmod /misc/modules/atc260x_audio.ko
     insmod /misc/modules/sndrv.ko
-	
+
     # Display
     insmod /misc/modules/atv5202_de.ko
     insmod /misc/modules/atv5202_backlight.ko
@@ -50,7 +41,7 @@ on post-fs
 
     # GPU
     insmod /misc/modules/galcore.ko
-	
+
     # MMC
     insmod /misc/modules/mmc_core.ko
     insmod /misc/modules/mmc_block.ko
@@ -61,10 +52,10 @@ on post-fs
 
     # Vce_drv
     insmod /misc/modules/vce_drv.ko
-	
+
     # Touch
     insmod /misc/modules/ctp_ft5x06.ko
-	
+
     # USB
     insmod /misc/modules/dwc3.ko
     insmod /misc/modules/dwc3-actions.ko
@@ -73,6 +64,27 @@ on post-fs
     insmod /misc/modules/monitor.ko
 
 on init
+    export PATH /sbin
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /sdcard
+
+    symlink /system/etc /etc
+
+    mkdir /misc
+    mkdir /boot
+    mkdir /recovery
+    mkdir /mnt
+    mkdir /sdcard
+    mkdir /sd-ext
+    mkdir /system
+    mkdir /data
+    mkdir /cache
+    mount /tmp /tmp tmpfs
+
+    chown root shell /tmp
+    chmod 0775 /tmp
+
     # Increase memory speed of data transmission for /system /data /sdcard
     write /sys/devices/virtual/bdi/default/read_ahead_kb 2048
     chmod 0444 /sys/devices/virtual/bdi/default/read_ahead_kb
@@ -82,3 +94,42 @@ on init
     chmod 0444 /sys/devices/virtual/bdi/93:24/read_ahead_kb
     write /sys/devices/virtual/bdi/93:0/read_ahead_kb 2048
     chmod 0444 /sys/devices/virtual/bdi/93:0/read_ahead_kb
+
+on boot
+
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    class_start default
+
+service ueventd /sbin/ueventd
+    critical
+
+on property:ro.debuggable=1
+    start console
+
+service recovery /sbin/recovery
+
+service adbd /sbin/adbd recovery
+    disabled
+
+# Always start adbd on userdebug and eng builds
+on property:ro.debuggable=1
+    setprop adb.recovery 1
+
+on property:adb.recovery=1
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18D1
+    write /sys/class/android_usb/android0/idProduct D001
+    write /sys/class/android_usb/android0/functions mass_storage,adb
+    write /sys/class/android_usb/android0/enable 1
+    write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
+    write /sys/class/android_usb/android0/iProduct $ro.product.model
+    write /sys/class/android_usb/android0/iSerial $ro.serialno
+
+# Restart adbd so it can run as root
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
