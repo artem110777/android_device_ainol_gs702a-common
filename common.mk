@@ -21,14 +21,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 PRODUCT_PACKAGES += \
     static_busybox \
     make_ext4fs \
-    e2fsck \
-    mke2fs \
-    ping \
-    strace \
+    setup_fs \
     com.android.future.usb.accessory \
     charger \
-    charger_res_images \
-    usbmond
+    charger_res_images
 
 # H/W
 PRODUCT_PACKAGES += \
@@ -52,8 +48,7 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/init.gs702a.rc:root/init.gs702a.rc \
     $(LOCAL_PATH)/rootdir/init.gs702a.sdboot.rc:root/init.gs702a.sdboot.rc \
     $(LOCAL_PATH)/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
-    $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
-    $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh
+    $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc
 	
 # Keylayout and Idc
 PRODUCT_COPY_FILES += \
@@ -77,7 +72,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml \
+    $(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
