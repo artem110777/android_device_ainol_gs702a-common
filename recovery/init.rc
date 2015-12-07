@@ -53,9 +53,6 @@ on early-init
     # Vce_drv
     insmod /misc/modules/vce_drv.ko
 
-    # Touch
-    insmod /misc/modules/ctp_ft5x06.ko
-
     # USB
     insmod /misc/modules/dwc3.ko
     insmod /misc/modules/dwc3-actions.ko
@@ -94,6 +91,9 @@ on init
     chmod 0444 /sys/devices/virtual/bdi/93:24/read_ahead_kb
     write /sys/devices/virtual/bdi/93:0/read_ahead_kb 2048
     chmod 0444 /sys/devices/virtual/bdi/93:0/read_ahead_kb
+
+    # Kernel debug
+    mount debugfs none /sys/kernel/debug
 
 on boot
 

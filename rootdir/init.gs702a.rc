@@ -28,6 +28,7 @@ on early-init
     # Backwards compatibility
     symlink /mnt/sdcard /sdcard
     symlink /mnt/sd-ext /sd-ext
+    symlink /mnt/uhost /uhost
 	
     # Insmod flash driver
     insmod /lib/modules/blk1drv.ko
