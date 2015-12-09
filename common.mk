@@ -44,9 +44,7 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/lib/modules/mmc_core.ko:root/lib/modules/mmc_core.ko \
     $(LOCAL_PATH)/rootdir/lib/modules/tsd_block.ko:root/lib/modules/tsd_block.ko \
     $(LOCAL_PATH)/rootdir/fstab.gs702a:root/fstab.gs702a \
-    $(LOCAL_PATH)/rootdir/fstab.sdboot.gs702a:root/fstab.sdboot.gs702a \
     $(LOCAL_PATH)/rootdir/init.gs702a.rc:root/init.gs702a.rc \
-    $(LOCAL_PATH)/rootdir/init.gs702a.sdboot.rc:root/init.gs702a.sdboot.rc \
     $(LOCAL_PATH)/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
     $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc
 	
@@ -96,10 +94,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 	
-# Vold and Storage
+# Vold for storages
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab \
-    $(LOCAL_PATH)/configs/vold.sdboot.fstab:system/etc/vold.sdboot.fstab	
+    $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
 
 # Product override
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0

@@ -64,16 +64,15 @@ on init
     export PATH /sbin
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
-    export EXTERNAL_STORAGE /sdcard
+    export EXTERNAL_STORAGE /sdcard0
 
     symlink /system/etc /etc
 
     mkdir /misc
     mkdir /boot
     mkdir /recovery
-    mkdir /mnt
-    mkdir /sdcard
-    mkdir /sd-ext
+    mkdir /sdcard0
+    mkdir /sdcard1
     mkdir /system
     mkdir /data
     mkdir /cache
@@ -96,7 +95,6 @@ on init
     mount debugfs none /sys/kernel/debug
 
 on boot
-
     ifup lo
     hostname localhost
     domainname localdomain

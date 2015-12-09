@@ -15,20 +15,17 @@ on early-init
     # Use legacy virtual memory layout for compatibility
     write /proc/sys/vm/legacy_va_layout 1
 
-    export EXTERNAL_STORAGE /mnt/sdcard
-    export ASEC_STORAGE /mnt/sdcard
-    export FLASH_STORAGE /mnt/sdcard
-    export TFCARD_STORAGE /mnt/sd-ext
-    export UHOST_STORAGE /mnt/uhost
-    export MEDIA_STORAGE /mnt/media
-    mkdir /mnt/sdcard 0000 system system
-    mkdir /mnt/sd-ext 0000 system system
-    mkdir /mnt/uhost 0000 system system
-    mkdir /mnt/media 0755 system system
-    # Backwards compatibility
-    symlink /mnt/sdcard /sdcard
-    symlink /mnt/sd-ext /sd-ext
-    symlink /mnt/uhost /uhost
+    mkdir /storage 0550 system sdcard_r
+    mkdir /storage/sdcard0 0000 root root
+    mkdir /storage/sdcard1 0000 root root
+    mkdir /storage/usbdisk0 0000 root root
+
+    export EXTERNAL_STORAGE /storage/sdcard0
+    export SECONDARY_STORAGE /storage/sdcard1
+
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard1 /sd-ext
+    symlink /storage/usbdisk0 /usbdisk
 	
     # Insmod flash driver
     insmod /lib/modules/blk1drv.ko
@@ -46,28 +43,8 @@ on early-init
     insmod /misc/modules/atv5202_fb.ko
 
 on fs
-    # Mount system	
-    wait /dev/block/actc
-    mount ext4 /dev/block/actc /system ro noatime nodiratime nodev noauto_da_alloc
-	
-    # Mount /data
-    wait /dev/block/actd
-    mount ext4 /dev/block/actd /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
-    setupfs /dev/block/actd
-    umount /data	
-    exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/actd	
-    mount ext4 /dev/block/actd /data noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
-
-    # Mount /cache
-    wait /dev/block/acte
-    mount ext4 /dev/block/acte /cache noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc	
-    setupfs /dev/block/acte
-    umount /cache
-    exec /system/bin/logwrapper /system/bin/e2fsck -y /dev/block/acte
-    mount ext4 /dev/block/acte /cache noatime nodiratime nosuid nodev noauto_da_alloc nodelalloc    
-
-    # Mount /media
-    mount vfat /dev/block/actg /mnt/media ro noatime nodiratime umask=0022 utf8
+    # Mount all storages
+    mount_all /fstab.gs702a
     
     # Kernel debug
     mount debugfs none /sys/kernel/debug
@@ -195,7 +172,7 @@ on boot
     write /sys/devices/system/cpu/cpufreq/interactive/boost 1
     chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/boost
 
-    # Increase memory speed of data transmission for /system /data /sdcard
+    # Increase memory speed of data transmission for /system /data /sdcard0
     write /sys/devices/virtual/bdi/default/read_ahead_kb 2048
     chmod 0444 /sys/devices/virtual/bdi/default/read_ahead_kb
     write /sys/devices/virtual/bdi/93:72/read_ahead_kb 2048
