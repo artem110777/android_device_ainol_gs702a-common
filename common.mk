@@ -24,7 +24,9 @@ PRODUCT_PACKAGES += \
     setup_fs \
     com.android.future.usb.accessory \
     charger \
-    charger_res_images
+    charger_res_images \
+    netperf \
+    netserver
 
 # H/W
 PRODUCT_PACKAGES += \
