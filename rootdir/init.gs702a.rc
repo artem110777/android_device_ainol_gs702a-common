@@ -18,14 +18,14 @@ on early-init
     mkdir /storage 0550 system sdcard_r
     mkdir /storage/sdcard0 0000 root root
     mkdir /storage/sdcard1 0000 root root
-    mkdir /storage/usbdisk0 0000 root root
+    mkdir /storage/usbdisk 0000 root root
 
     export EXTERNAL_STORAGE /storage/sdcard0
     export SECONDARY_STORAGE /storage/sdcard1
 
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard1 /sd-ext
-    symlink /storage/usbdisk0 /usbdisk
+    symlink /storage/usbdisk /usbdisk
 	
     # Insmod flash driver
     insmod /lib/modules/blk1drv.ko

@@ -26,4 +26,4 @@
 # For gs702a:
 dev_mount flash /storage/sdcard0 auto /devices/virtual/block/actj
 dev_mount sdcard /storage/sdcard1 auto /devices/platform/asoc-mmc0.0/mmc_host/mmc0
-dev_mount uhost /storage/usbdisk0 auto /devices/platform/actions-dwc3.1/dwc3.0/xhci-hcd
+dev_mount uhost /storage/usbdisk auto /devices/platform/actions-dwc3.1/dwc3.0/xhci-hcd

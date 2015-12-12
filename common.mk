@@ -17,6 +17,11 @@ LOCAL_PATH := device/ainol/gs702a-common
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
+# AAPT config
+# gs702a devices is mdpi.
+PRODUCT_AAPT_CONFIG += large mdpi tvdpi hdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     static_busybox \
@@ -108,7 +113,6 @@ PRODUCT_CHARACTERISTICS := tablet
 # .prop override
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=0 \
-    ro.opengles.version=131072 \
-    hwui.render_dirty_regions=false
+    ro.opengles.version=131072
     
 $(call inherit-product-if-exists, vendor/ainol/gs702a-common/gs702a-common-vendor.mk)
