@@ -89,14 +89,12 @@ TARGET_NO_RADIOIMAGE := true
 # CWM Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
 RECOVERY_FSTAB_VERSION := 2
-TARGET_PROVIDES_INIT := true
-TARGET_PROVIDES_INIT_TARGET_RC := true
-TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/recovery/init.rc
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := "/sys/class/backlight/act_pwm_backlight/brightness"
+BOARD_RECOVERY_SWIPE := true
 
 # Releasetools
 TARGET_PROVIDES_RELEASETOOLS := true

@@ -19,8 +19,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # AAPT config
 # gs702a devices is mdpi.
-PRODUCT_AAPT_CONFIG += large mdpi tvdpi hdpi
+PRODUCT_AAPT_CONFIG += xlarge mdpi hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
+
+# Actions Hardware
+PRODUCT_PACKAGES += \
+    actions
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -74,10 +78,14 @@ PRODUCT_PACKAGES += \
 	
 # Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml
+
+# Product override
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+PRODUCT_TAGS += dalvik.gc.type-precise
+PRODUCT_CHARACTERISTICS := tablet
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -105,10 +113,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
 
-# Product override
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_TAGS += dalvik.gc.type-precise
-PRODUCT_CHARACTERISTICS := tablet
+# Wi-Fi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=120
 
 # .prop override
 PRODUCT_PROPERTY_OVERRIDES += \

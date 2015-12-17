@@ -9,24 +9,9 @@ import init.modules.rc
 import init.wifi.rc
 
 on early-init
-    # Disable hotplug by now
-    write /sys/devices/system/cpu/autoplug/lock 1
-
     # Use legacy virtual memory layout for compatibility
     write /proc/sys/vm/legacy_va_layout 1
 
-    mkdir /storage 0550 system sdcard_r
-    mkdir /storage/sdcard0 0000 root root
-    mkdir /storage/sdcard1 0000 root root
-    mkdir /storage/usbdisk 0000 root root
-
-    export EXTERNAL_STORAGE /storage/sdcard0
-    export SECONDARY_STORAGE /storage/sdcard1
-
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard1 /sd-ext
-    symlink /storage/usbdisk /usbdisk
-	
     # Insmod flash driver
     insmod /lib/modules/blk1drv.ko
     insmod /lib/modules/blk2drv.ko
@@ -42,18 +27,38 @@ on early-init
     insmod /misc/modules/atv5202_lcd.ko
     insmod /misc/modules/atv5202_fb.ko
 
+on init
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
+
+    mkdir /storage 0550 system sdcard_r
+    mkdir /storage/sdcard0 0000 root root
+    mkdir /storage/sdcard1 0000 root root
+    mkdir /storage/usbdisk0 0000 root root
+
+    export EXTERNAL_STORAGE /storage/sdcard0
+    export SECONDARY_STORAGE /storage/sdcard1
+
+    # For backwards compatibility
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/sdcard1 /extSdCard
+    symlink /storage/sdcard1 /mnt/extSdCard
+    symlink /storage/usbdisk0 /usbdisk0
+    symlink /storage/usbdisk0 /mnt/usbdisk0
+
+loglevel 7
+
 on fs
     # Mount all storages
     mount_all /fstab.gs702a
-    
+
+    setprop ro.crypto.umount_sd false
+
     # Kernel debug
     mount debugfs none /sys/kernel/debug
-
-on post-fs-data
-    chmod 06755 /system/xbin/su
-    symlink /system/xbin/su /system/bin/su	
     
 on boot
+    # Backlight
     chown system system /sys/class/backlight/act_pwm_backlight/brightness
     chmod 0660 /sys/class/backlight/act_pwm_backlight/brightness
     chown system system /sys/class/backlight/act_pwm_backlight/actual_brightness
@@ -65,7 +70,57 @@ on boot
     chown system system /sys/class/backlight/act_pwm_backlight/min_brightness
     chmod 0660 /sys/class/backlight/act_pwm_backlight/min_brightness
 
-on boot
+    # CPU
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    chown system system /sys/devices/system/cpu/cpufreq/user/boost
+    chmod 0777 /sys/devices/system/cpu/cpufreq/user/boost
+    chown system system /proc/cpu/alignment
+    chmod 0777 /proc/cpu/alignment
+    chown system system /sys/devices/system/cpu/cpufreq/user/mode
+    chmod 0660 /sys/devices/system/cpu/cpufreq/user/mode
+    chown system system /sys/devices/system/cpu/io_wait
+    chmod 0660 /sys/devices/system/cpu/io_wait
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/io_mode
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_mode
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    chown root system /sys/devices/system/cpu/cpu1/online
+    chown root system /sys/devices/system/cpu/cpu2/online
+    chown root system /sys/devices/system/cpu/cpu3/online
+    chmod 664 /sys/devices/system/cpu/cpu1/online
+    chmod 664 /sys/devices/system/cpu/cpu2/online
+    chmod 664 /sys/devices/system/cpu/cpu3/online
+    write /sys/devices/system/cpu/cpufreq/user/boost 1
+    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
+
+    # GPU
+    chown media media /sys/devices/system/cpu/cpufreq/gpufreq/gpu2doutstanding
+    chmod 0660 /sys/devices/system/cpu/cpufreq/gpufreq/gpu2doutstanding
+    chown media media /sys/devices/system/cpu/cpufreq/gpufreq/gpu3doutstanding
+    chmod 0660 /sys/devices/system/cpu/cpufreq/gpufreq/gpu3doutstanding
+    chown system system /sys/devices/system/cpu/cpufreq/gpufreq/policy
+    chmod 0777 /sys/devices/system/cpu/cpufreq/gpufreq/policy
+    write /sys/devices/system/cpu/cpufreq/gpufreq/policy 2
+    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
+    write /sys/devices/system/cpu/cpufreq/interactive/boost 1
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/boost
+
+    # Increase memory speed of data transmission for /system /data /sdcard0 /sdcard1 /usbdisk0
+    write /sys/devices/virtual/bdi/default/read_ahead_kb 3072
+    chmod 0444 /sys/devices/virtual/bdi/default/read_ahead_kb
+    write /sys/devices/virtual/bdi/179:0/read_ahead_kb 3072
+    chmod 0444 /sys/devices/virtual/bdi/179:0/read_ahead_kb
+    write /sys/devices/virtual/bdi/93:72/read_ahead_kb 3072
+    chmod 0444 /sys/devices/virtual/bdi/93:72/read_ahead_kb
+    write /sys/devices/virtual/bdi/93:24/read_ahead_kb 3072
+    chmod 0444 /sys/devices/virtual/bdi/93:24/read_ahead_kb
+    write /sys/devices/virtual/bdi/93:0/read_ahead_kb 3072
+    chmod 0444 /sys/devices/virtual/bdi/93:0/read_ahead_kb
+    write /sys/devices/virtual/bdi/8:0/read_ahead_kb 3072
+    chmod 0444 /sys/devices/virtual/bdi/8:0/read_ahead_kb
+
+    # Sensors
     chown system system /sys/class/input/input0/delay
     chmod 0660 /sys/class/input/input0/delay
     chown system system /sys/class/input/input0/enable
@@ -76,7 +131,7 @@ on boot
     chmod 0660 /sys/class/input/input0/calibration_reset
     chown system system /sys/class/input/input0/calibration_run
     chmod 0660 /sys/class/input/input0/calibration_run
-    
+
     chown system system /sys/class/input/input1/delay
     chmod 0660 /sys/class/input/input1/delay
     chown system system /sys/class/input/input1/enable
@@ -87,7 +142,7 @@ on boot
     chmod 0660 /sys/class/input/input1/calibration_reset
     chown system system /sys/class/input/input1/calibration_run
     chmod 0660 /sys/class/input/input1/calibration_run
-    
+
     chown system system /sys/class/input/input2/delay
     chmod 0660 /sys/class/input/input2/delay
     chown system system /sys/class/input/input2/enable
@@ -98,7 +153,7 @@ on boot
     chmod 0660 /sys/class/input/input2/calibration_reset
     chown system system /sys/class/input/input2/calibration_run
     chmod 0660 /sys/class/input/input2/calibration_run
-    
+
     chown system system /sys/class/input/input3/delay
     chmod 0660 /sys/class/input/input3/delay
     chown system system /sys/class/input/input3/enable
@@ -110,89 +165,14 @@ on boot
     chown system system /sys/class/input/input3/calibration_run
     chmod 0660 /sys/class/input/input3/calibration_run
 
-on boot
-    chown system system /sys/devices/system/cpu/autoplug/usr_lock
-    chmod 0777 /sys/devices/system/cpu/autoplug/usr_lock
-    chown system system /sys/devices/system/cpu/cpu1/online
-    chmod 0777 /sys/devices/system/cpu/cpu1/online
-    chown system system /sys/devices/system/cpu/cpu2/online
-    chmod 0777 /sys/devices/system/cpu/cpu2/online
-    chown system system /sys/devices/system/cpu/cpu3/online
-    chmod 0777 /sys/devices/system/cpu/cpu3/online
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-
     write /data/data/ant_status on
     chmod 0666 /data/data/ant_status
-
-    chown media media /sys/devices/system/cpu/cpufreq/gpufreq/gpu2doutstanding
-    chmod 0660 /sys/devices/system/cpu/cpufreq/gpufreq/gpu2doutstanding
-    chown media media /sys/devices/system/cpu/cpufreq/gpufreq/gpu3doutstanding
-    chmod 0660 /sys/devices/system/cpu/cpufreq/gpufreq/gpu3doutstanding
-
-    # For performance-service
-    chown system system /dev/performance
-    chmod 0777 /dev/performance
-    chown system system /sys/devices/system/cpu/cpufreq/user/boost
-    chmod 0777 /sys/devices/system/cpu/cpufreq/user/boost
-    chown system system /proc/cpu/alignment
-    chmod 0777 /proc/cpu/alignment
-    chown system system /sys/devices/system/cpu/cpufreq/gpufreq/policy
-    chmod 0777 /sys/devices/system/cpu/cpufreq/gpufreq/policy
-    chown system system /sys/devices/system/cpu/autoplug/opt
-    chmod 0664 /sys/devices/system/cpu/autoplug/opt
-    chown system system /sys/devices/system/cpu/autoplug/opt2
-    chmod 0644 /sys/devices/system/cpu/autoplug/opt2
-    chown system system /sys/devices/system/cpu/cpufreq/user/mode
-    chmod 0660 /sys/devices/system/cpu/cpufreq/user/mode
-    chown system system /sys/devices/system/cpu/io_wait
-    chmod 0660 /sys/devices/system/cpu/io_wait
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/io_mode
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_mode
-	
-    # Cancel wipe-data after abnormal shuoff
-    setprop persist.sys.shutok init
-    setprop persist.sys.root 1	
-	
-    # Allow system to modify cpufreq control files
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-	
-    # Freq. fixes for CPU and GPU
-    write /sys/devices/system/cpu/cpufreq/user/boost 1
-    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
-    write /sys/devices/system/cpu/cpufreq/gpufreq/policy 2
-    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
-
-    # Colorfix after flashing
-    write /sys/devices/system/cpu/cpufreq/interactive/boost 1
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/boost
-
-    # Increase memory speed of data transmission for /system /data /sdcard0
-    write /sys/devices/virtual/bdi/default/read_ahead_kb 2048
-    chmod 0444 /sys/devices/virtual/bdi/default/read_ahead_kb
-    write /sys/devices/virtual/bdi/93:72/read_ahead_kb 2048
-    chmod 0444 /sys/devices/virtual/bdi/93:72/read_ahead_kb
-    write /sys/devices/virtual/bdi/93:24/read_ahead_kb 2048
-    chmod 0444 /sys/devices/virtual/bdi/93:24/read_ahead_kb
-    write /sys/devices/virtual/bdi/93:0/read_ahead_kb 2048
-    chmod 0444 /sys/devices/virtual/bdi/93:0/read_ahead_kb
-
-on init
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
 	
 # Update system time from rtc
-service hwclock_update /system/xbin/busybox hwclock -s
+service hwclock_update /system/xbin/busybox_act hwclock -s
     class core
     oneshot
 
 service batteryservice /charger
     class charger
     oneshot
-
-on charger
-    # NOTE: class_start is moved to init.modules.rc

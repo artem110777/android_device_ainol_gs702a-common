@@ -7,6 +7,6 @@
 /cache		ext4		/dev/block/acte
 /data_bak	vfat		/dev/block/actf
 
-/mnt/sdcard     vfat        /dev/block/actj
-/mnt/sd-ext     auto        /dev/block/mmcblk0p1
-/mnt/uhost      auto        /dev/block/mmcblk0p2 
+/storage/sdcard0     vfat        /dev/block/actj
+/storage/sdcard1     auto        /dev/block/mmcblk0p1
+/storage/usbdisk0    auto        /dev/block/mmcblk0p2 
