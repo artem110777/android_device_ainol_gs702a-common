@@ -32,7 +32,7 @@ LOCAL_C_INCLUDES += \
     device/ainol/gs702a-common/includes/
 
 LOCAL_PRELINK_MODULE := false
-LOCAL_MODULE:= libactions_runtime
+LOCAL_MODULE := libactions_runtime
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
 LOCAL_MODULE_TAGS := optional
 
