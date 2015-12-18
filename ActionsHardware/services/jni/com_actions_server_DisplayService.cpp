@@ -1041,7 +1041,7 @@ int register_android_server_DisplayService(JNIEnv *env) {
         return -1;
     }
 
-    clazz = env->FindClass(com/actions/server/DisplayService$CableMonitorThread");
+    clazz = env->FindClass("com/actions/server/DisplayService$CableMonitorThread");
     method_plugEvent = env->GetMethodID(clazz, "plugEvent", "(I)V");
 
     if (jniRegisterNativeMethods(env, "com/actions/server/DisplayService$CableMonitorThread",
