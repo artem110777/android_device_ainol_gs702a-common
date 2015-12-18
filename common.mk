@@ -24,7 +24,8 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Actions Hardware
 PRODUCT_PACKAGES += \
-    actions
+    actions \
+    libactions_runtime
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
