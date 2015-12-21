@@ -153,16 +153,12 @@ struct sink_capabilities_t
 	unsigned int video_formats[4];
 };
 
-typedef struct
-{
+typedef struct {
     unsigned int vid;
-    unsigned int width;      /* width for each video format */
-    unsigned int height;     /* height for each video format */
+    unsigned int width; /* width for each video format */
+    unsigned int height; /* height for each video format */
     unsigned int Is_progressive;
 } video_setting_t;
-
-
-
 
 /**
  * Every hardware module must have a data structure named HAL_MODULE_INFO_SYM
@@ -186,9 +182,7 @@ struct hdmi_device_t
     int (*enable)(struct hdmi_device_t *dev);
     int (*disable)(struct hdmi_device_t *dev);
     int (*get_capability)(struct hdmi_device_t *dev, char *sink_cap);
-    int (*resolve_config)(struct hdmi_device_t *dev, 				/* write back to Hdmi */ 
-    			video_setting_t	*vid_setting    /* for DE output */    
-    			);
+    int (*resolve_config)(struct hdmi_device_t *dev, video_setting_t *vid_setting);
 
     //int (*set_video_config)(struct hdmi_device_t *dev, hdmi_vid_t *vid_in);
     //int (*set_audio)(struct hdmi_device_t *dev, hdmi_aud_t *aud_in, int v);
@@ -204,11 +198,9 @@ struct hdmi_device_t
 };
 
 /** convenience API for opening and closing a device */
-static inline int hdmi_dev_open(const struct hw_module_t* module, 
-        struct hdmi_device_t** device)
+static inline int hdmi_dev_open(const struct hw_module_t* module, struct hdmi_device_t** device)
 {
-    return module->methods->open(module, 
-            HDMI_HARDWARE_HDMI0, (struct hw_device_t**)device);
+    return module->methods->open(module, HDMI_HARDWARE_HDMI0, (struct hw_device_t**)device);
 }
 
 static inline int hdmi_dev_close(struct hdmi_device_t* device)

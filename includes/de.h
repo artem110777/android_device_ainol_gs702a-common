@@ -51,7 +51,6 @@ struct displayer_config {
 #define DEIO_SET_SCALE_RATE_FULL_SCREEN_MIN_Y 0
 #define DEIO_SET_SCALE_RATE_FULL_SCREEN_MAX_X 50
 #define DEIO_SET_SCALE_RATE_FULL_SCREEN_MAX_Y 50
-/*****************************************************************************/
 
 struct de_module_t {
    struct hw_module_t common;
@@ -59,7 +58,6 @@ struct de_module_t {
 
 struct de_control_device_t {
 	struct hw_device_t common;
-	/* supporting control APIs go here */
 	int (*set_displayer)(struct de_control_device_t *dev, displayer_config *cfg);
 	int (*get_displayer)(struct de_control_device_t *dev);
 	int (*de_set_content_output_tv)(struct de_control_device_t *dev, int set);
@@ -69,8 +67,6 @@ struct de_control_device_t {
 	void (*de_set_display_mode_single)(struct de_control_device_t *dev, int mode);
 	void (*de_set_display_mode)(struct de_control_device_t *dev, int mode);
 };
-
-/*****************************************************************************/
 
 #define DE_HARDWARE_MODULE_ID "displayengine"
 
