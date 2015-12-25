@@ -64,20 +64,17 @@ on early-init
     # Vibrate
     insmod /misc/modules/act_vibrate.ko
 
-    export EXTERNAL_STORAGE /storage/sdcard0
-    export SECONDARY_STORAGE /storage/sdcard1
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export SECONDARY_STORAGE /mnt/extsd
 
-    mkdir /storage/sdcard0 0000 system system
-    mkdir /storage/sdcard1 0000 system system
-    mkdir /storage/usbdisk0 0000 system system
+    mkdir /mnt/sdcard 0000 system system
+    mkdir /mnt/extsd 0000 system system
+    mkdir /mnt/usbdisk 0000 system system
 
     # For backwards compatibility
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard0 /mnt/sdcard
-    symlink /storage/sdcard1 /extsd
-    symlink /storage/sdcard1 /mnt/extsd
-    symlink /storage/usbdisk0 /usbdisk
-    symlink /storage/usbdisk0 /mnt/usbdisk
+    symlink /mnt/sdcard /sdcard
+    symlink /mnt/extsd /extsd
+    symlink /mnt/usbdisk /usbdisk
 
 on init
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
@@ -122,11 +119,11 @@ on boot
     chown root system /sys/devices/system/cpu/cpu1/online
     chown root system /sys/devices/system/cpu/cpu2/online
     chown root system /sys/devices/system/cpu/cpu3/online
-    chmod 664 /sys/devices/system/cpu/cpu1/online
-    chmod 664 /sys/devices/system/cpu/cpu2/online
-    chmod 664 /sys/devices/system/cpu/cpu3/online
+    chmod 0664 /sys/devices/system/cpu/cpu1/online
+    chmod 0664 /sys/devices/system/cpu/cpu2/online
+    chmod 0664 /sys/devices/system/cpu/cpu3/online
     write /sys/devices/system/cpu/cpufreq/user/boost 1
-    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
+    chmod 0755 /sys/devices/system/cpu/cpufreq/user/boost
 
     # GPU
     chown media media /sys/devices/system/cpu/cpufreq/gpufreq/gpu2doutstanding
@@ -136,23 +133,23 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/gpufreq/policy
     chmod 0777 /sys/devices/system/cpu/cpufreq/gpufreq/policy
     write /sys/devices/system/cpu/cpufreq/gpufreq/policy 2
-    chmod 0444 /sys/devices/system/cpu/cpufreq/user/boost
+    chmod 0755 /sys/devices/system/cpu/cpufreq/user/boost
     write /sys/devices/system/cpu/cpufreq/interactive/boost 1
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/boost
+    chmod 0755 /sys/devices/system/cpu/cpufreq/interactive/boost
 
-    # Increase memory speed of data transmission for /system /data /sdcard0 /sdcard1 /usbdisk0
+    # Increase memory speed of data transmission for /system /data /sdcard /extsd /usbdisk
     write /sys/devices/virtual/bdi/default/read_ahead_kb 3072
-    chmod 0444 /sys/devices/virtual/bdi/default/read_ahead_kb
+    chmod 0755 /sys/devices/virtual/bdi/default/read_ahead_kb
     write /sys/devices/virtual/bdi/179:0/read_ahead_kb 3072
-    chmod 0444 /sys/devices/virtual/bdi/179:0/read_ahead_kb
+    chmod 0755 /sys/devices/virtual/bdi/179:0/read_ahead_kb
     write /sys/devices/virtual/bdi/93:72/read_ahead_kb 3072
-    chmod 0444 /sys/devices/virtual/bdi/93:72/read_ahead_kb
+    chmod 0755 /sys/devices/virtual/bdi/93:72/read_ahead_kb
     write /sys/devices/virtual/bdi/93:24/read_ahead_kb 3072
-    chmod 0444 /sys/devices/virtual/bdi/93:24/read_ahead_kb
+    chmod 0755 /sys/devices/virtual/bdi/93:24/read_ahead_kb
     write /sys/devices/virtual/bdi/93:0/read_ahead_kb 3072
-    chmod 0444 /sys/devices/virtual/bdi/93:0/read_ahead_kb
+    chmod 0755 /sys/devices/virtual/bdi/93:0/read_ahead_kb
     write /sys/devices/virtual/bdi/8:0/read_ahead_kb 3072
-    chmod 0444 /sys/devices/virtual/bdi/8:0/read_ahead_kb
+    chmod 0755 /sys/devices/virtual/bdi/8:0/read_ahead_kb
 
     # Sensors
     chown system system /sys/class/input/input0/delay
@@ -201,7 +198,7 @@ on boot
 
     write /data/data/ant_status on
     chmod 0666 /data/data/ant_status
-	
+
 # Update system time from rtc
 service hwclock_update /system/xbin/busybox_act hwclock -s
     class core

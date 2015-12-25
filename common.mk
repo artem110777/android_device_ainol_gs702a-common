@@ -50,10 +50,8 @@ PRODUCT_PACKAGES := \
 
 # Init files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/lib/modules/atv5202_mmc.ko:root/lib/modules/atv5202_mmc.ko \
     $(LOCAL_PATH)/rootdir/lib/modules/blk1drv.ko:root/lib/modules/blk1drv.ko \
     $(LOCAL_PATH)/rootdir/lib/modules/blk2drv.ko:root/lib/modules/blk2drv.ko \
-    $(LOCAL_PATH)/rootdir/lib/modules/mmc_core.ko:root/lib/modules/mmc_core.ko \
     $(LOCAL_PATH)/rootdir/lib/modules/tsd_block.ko:root/lib/modules/tsd_block.ko \
     $(LOCAL_PATH)/rootdir/fstab.gs702a:root/fstab.gs702a \
     $(LOCAL_PATH)/rootdir/init.gs702a.rc:root/init.gs702a.rc \

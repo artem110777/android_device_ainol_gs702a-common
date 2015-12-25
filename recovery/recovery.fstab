@@ -1,12 +1,8 @@
-# mount point	fstype		device
-/recovery	vfat		/dev/block/acta
-/boot		vfat		/dev/block/actb
-/misc		emmc		/dev/block/actb
-/system		ext4		/dev/block/actc
-/data		ext4		/dev/block/actd
-/cache		ext4		/dev/block/acte
-/data_bak	vfat		/dev/block/actf
-
-/storage/sdcard0     vfat        /dev/block/actj
-/storage/sdcard1     auto        /dev/block/mmcblk0p1
-/storage/usbdisk0    auto        /dev/block/mmcblk0p2 
+# mount point   fstype      device
+/recovery       vfat        /dev/block/acta
+/misc           emmc        /dev/block/actb
+/system         ext4        /dev/block/actc
+/data           ext4        /dev/block/actd
+/cache          ext4        /dev/block/acte
+/sdcard         vfat        /dev/block/actj
+/extsd          auto        /dev/block/mmcblk0p1
