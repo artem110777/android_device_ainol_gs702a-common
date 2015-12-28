@@ -1,5 +1,6 @@
 # mount point   fstype      device
 /recovery       vfat        /dev/block/acta
+/boot           vfat        /dev/block/actb
 /misc           emmc        /dev/block/actb
 /system         ext4        /dev/block/actc
 /data           ext4        /dev/block/actd
