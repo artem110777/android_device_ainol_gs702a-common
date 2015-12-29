@@ -23,7 +23,6 @@ LOCAL_SRC_FILES := \
     
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := actions
-
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 
 # AIDL
@@ -41,4 +40,5 @@ include $(BUILD_JAVA_LIBRARY)
 
 # The JNI component
 include $(CLEAR_VARS)
+
 include $(call all-makefiles-under, $(LOCAL_PATH))

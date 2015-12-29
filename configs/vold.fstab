@@ -13,6 +13,6 @@
 ######################
 
 # For all gs702a platform
-dev_mount sdcard  /mnt/sdcard  auto /devices/virtual/block/actj
-dev_mount extsd   /mnt/extsd   auto /devices/platform/asoc-mmc0.0/mmc_host/mmc0
-dev_mount usbdisk /mnt/usbdisk auto /devices/platform/actions-dwc3.1/dwc3.0/xhci-hcd
+dev_mount sdcard0  /storage/sdcard0  auto /devices/virtual/block/actj
+dev_mount sdcard1  /storage/sdcard1  auto /devices/platform/asoc-mmc0.0/mmc_host/mmc0
+dev_mount usbdisk0 /storage/usbdisk0 auto /devices/platform/actions-dwc3.1/dwc3.0/xhci-hcd

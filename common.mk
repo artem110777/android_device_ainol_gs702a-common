@@ -23,12 +23,12 @@ PRODUCT_AAPT_CONFIG += xlarge mdpi hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Actions Hardware
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     actions \
     libactions_runtime
 
 # Filesystem management tools
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     charger \
     charger_res_images \
     com.android.future.usb.accessory \
@@ -39,7 +39,7 @@ PRODUCT_PACKAGES := \
     static_busybox
 
 # H/W
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.policy.default \
     audio.primary.ATM702X \
@@ -64,7 +64,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/ft5x0x_ts.idc:system/usr/idc/ft5x0x_ts.idc
 	
 # Live Wallpapers
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     Galaxy4 \
     HoloSpiralWallpaper \
     LiveWallpapers \

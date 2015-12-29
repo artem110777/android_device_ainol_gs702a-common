@@ -64,30 +64,32 @@ on early-init
     # Vibrate
     insmod /misc/modules/act_vibrate.ko
 
-    export EXTERNAL_STORAGE /mnt/sdcard
-    export SECONDARY_STORAGE /mnt/extsd
-
-    mkdir /mnt/sdcard 0000 system system
-    mkdir /mnt/extsd 0000 system system
-    mkdir /mnt/usbdisk 0000 system system
-
-    # For backwards compatibility
-    symlink /mnt/sdcard /sdcard
-    symlink /mnt/extsd /extsd
-    symlink /mnt/usbdisk /usbdisk
-
 on init
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/actions.jar
 
-loglevel 7
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /storage 0550 system sdcard_r
+    mkdir /storage/sdcard0 0000 root root
+    mkdir /storage/sdcard1 0000 root root
+    mkdir /storage/usbdisk0 0000 root root
 
-on fs
-    # Mount all storages
+    export EXTERNAL_STORAGE /storage/sdcard0
+    export SECONDARY_STORAGE /storage/sdcard1
+
+    # For backwards compatibility
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/sdcard1 /extsd
+    symlink /storage/sdcard1 /mnt/extsd
+    symlink /storage/usbdisk0 /usbdisk
+    symlink /storage/usbdisk0 /mnt/usbdisk
+
+on early-fs
     mount_all /fstab.gs702a
 
     # Kernel debug
     mount debugfs none /sys/kernel/debug
-    
+
 on boot
     # Backlight
     chown system system /sys/class/backlight/act_pwm_backlight/brightness
