@@ -206,6 +206,14 @@ service hwclock_update /system/xbin/busybox_act hwclock -s
     class core
     oneshot
 
+service ril-daemon /system/bin/rild -l libactions-ril.so -- -u /dev/ttyUSB0 -d /dev/ttyUSB2
+    class main
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw log
+    disabled
+
 service batteryservice /charger
     class charger
     oneshot

@@ -32,9 +32,12 @@ PRODUCT_PACKAGES += \
     charger \
     charger_res_images \
     com.android.future.usb.accessory \
+    libril \
+    libusb \
     make_ext4fs \
     netperf \
     netserver \
+    rild \
     setup_fs \
     static_busybox
 
@@ -56,7 +59,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.gs702a:root/fstab.gs702a \
     $(LOCAL_PATH)/rootdir/init.gs702a.rc:root/init.gs702a.rc \
     $(LOCAL_PATH)/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
-    $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc
+    $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
+    $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh
 	
 # Keylayout and Idc
 PRODUCT_COPY_FILES += \
@@ -77,6 +81,7 @@ PRODUCT_PACKAGES += \
 	
 # Media
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio_effects.conf:system/etc/audio_effects.conf \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/omx_codec.xml:system/etc/omx_codec.xml
@@ -105,6 +110,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 	
@@ -123,6 +130,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # .prop override
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=0 \
-    ro.opengles.version=131072
+    ro.opengles.version=131072 \
+    ro.vold.umsdirtyratio=50 \
+    ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1 \
+    persist.sys.vold.switchexternal=0
     
 $(call inherit-product-if-exists, vendor/ainol/gs702a-common/gs702a-common-vendor.mk)
