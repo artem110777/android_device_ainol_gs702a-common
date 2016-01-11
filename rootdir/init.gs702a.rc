@@ -84,7 +84,7 @@ on init
     symlink /storage/usbdisk0 /usbdisk
     symlink /storage/usbdisk0 /mnt/usbdisk
 
-on early-fs
+on fs
     mount_all /fstab.gs702a
 
     # Kernel debug

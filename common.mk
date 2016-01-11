@@ -55,18 +55,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/lib/modules/blk1drv.ko:root/lib/modules/blk1drv.ko \
     $(LOCAL_PATH)/rootdir/lib/modules/blk2drv.ko:root/lib/modules/blk2drv.ko \
-    $(LOCAL_PATH)/rootdir/lib/modules/tsd_block.ko:root/lib/modules/tsd_block.ko \
+    $(LOCAL_PATH)/rootdir/lib/modules/quickboot.ko:root/lib/modules/quickboot.ko \
     $(LOCAL_PATH)/rootdir/fstab.gs702a:root/fstab.gs702a \
     $(LOCAL_PATH)/rootdir/init.gs702a.rc:root/init.gs702a.rc \
     $(LOCAL_PATH)/rootdir/init.gs702a.usb.rc:root/init.gs702a.usb.rc \
     $(LOCAL_PATH)/rootdir/ueventd.gs702a.rc:root/ueventd.gs702a.rc \
     $(LOCAL_PATH)/rootdir/usbmond.sh:root/usbmond.sh
-	
+
 # Keylayout and Idc
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/atc260x-adckeypad.kl:system/usr/keylayout/atc260x-adckeypad.kl \
     $(LOCAL_PATH)/idc/ft5x0x_ts.idc:system/usr/idc/ft5x0x_ts.idc
-	
+
 # Live Wallpapers
 PRODUCT_PACKAGES += \
     Galaxy4 \
@@ -78,7 +78,7 @@ PRODUCT_PACKAGES += \
     PhaseBeam \
     VisualizationWallpapers \
     librs_jni	
-	
+
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_effects.conf:system/etc/audio_effects.conf \
@@ -108,7 +108,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
-	
+
 # USB and storages
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
@@ -132,5 +132,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=50 \
     ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1 \
     persist.sys.vold.switchexternal=0
-    
+
 $(call inherit-product-if-exists, vendor/ainol/gs702a-common/gs702a-common-vendor.mk)
