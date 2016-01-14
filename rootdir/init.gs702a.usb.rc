@@ -92,3 +92,4 @@ service usbmond /system/bin/usbmond
     user root
     group root shell
     ioprio be 2
+    oneshot
